@@ -1,0 +1,83 @@
+<template>
+  <div class="fscreen flex flex-col gap-2">
+    <h1 class="p-2 bg-primary/60 text-primary-content font-semibold">
+      Installed Apps
+    </h1>
+    <!-- Selected App -->
+    <AppManagePanel
+      v-if="selectedApp"
+      :manifest="selectedApp"
+      :kikxApp
+      :close="reloadApps"
+    />
+    <!-- Container -->
+    <div class="w-full bg-base-100">
+      <!-- App List Section -->
+      <div class="px-2">
+        <input
+          v-model="search"
+          class="input input-sm rounded-lg w-full focus:outline-none"
+          placeholder="Search..."
+        />
+      </div>
+
+      <div class="p-2 flex flex-col gap-2 overflow-y-auto">
+        <AppCardSmall
+          v-for="app in filteredApps"
+          :key="app.name"
+          :app
+          @click="() => selectApp(app)"
+        />
+      </div>
+    </div>
+  </div>
+</template>
+
+<script setup>
+  import { ref, computed, onBeforeMount } from "vue";
+
+  import AppCardSmall from "@/components/AppCardSmall.vue";
+  import AppManagePanel from "@/components/panels/AppManagePanel.vue";
+
+  const { kikxApp } = defineProps(["kikxApp"]);
+
+  const selectedApp = ref(null);
+  const apps = ref([]);
+
+  const search = ref("");
+
+  const filteredApps = computed(() => {
+    if (!search.value) return apps.value;
+
+    const query = search.value.toLowerCase().trim();
+
+    return apps.value.filter(app =>
+      [app.title, app.name, app.category, app.author].some(field =>
+        field?.toString().toLowerCase().includes(query)
+      )
+    );
+  });
+
+  function reloadApps() {
+    fetchAppsList();
+    selectedApp.value = null;
+  }
+
+  function selectApp(app) {
+    selectedApp.value = app;
+  }
+
+  async function fetchAppsList() {
+    const res = await kikxApp.system.request(`app/installed-apps`);
+
+    if (!res.ok) {
+      throw new Error(res.error);
+    }
+
+    apps.value = res.data;
+  }
+
+  onBeforeMount(async () => {
+    await fetchAppsList();
+  });
+</script>

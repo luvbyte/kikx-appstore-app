@@ -1,0 +1,11 @@
+# Can install from github url
+
+# find releases -> .kikx package and install
+
+# Upload Local install of .kikx package
+
+# Can install from home/* directory 
+
+# App store will get data from data/ directory for now
+
+
