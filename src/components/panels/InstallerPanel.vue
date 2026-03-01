@@ -1,12 +1,12 @@
 <template>
   <div class="bg-base-100 fixed fullscreen inset-0 z-60 flex flex-col gap-2">
-    <Header title="App Installer" :close="onClose" />
+    <Header title="App Installer" :close="() => onClose()" />
 
     <div class="flex-1 flex flex-col overflow-hidden">
-      <Loading v-if="loading && !errorText" :label="loadingText" />
       <!-- Manifest -->
+      <Loading v-if="loading" :label="loadingText" />
       <AppManifest
-        v-else
+        v-if="appData"
         :manifest="appData.manifest"
         :iconUrl="getIconUrl(appData.manifest.icon)"
       />
@@ -38,11 +38,10 @@
 
   import { AppInstaller } from "@/api/Kpm";
 
-  const { kikxApp, assetData, close } = defineProps([
-    "kikxApp",
-    "assetData",
-    "close"
-  ]);
+  const { kikxApp, assetData } = defineProps(["kikxApp", "assetData"]);
+  const emit = defineEmits(["close"]);
+
+  // when closing
 
   const installer = new AppInstaller(kikxApp);
 
@@ -79,23 +78,27 @@
 
   async function completeInstall() {
     try {
-      loadingText.value = "Installing...";
+      if (appData.value.is_update) {
+        loadingText.value = "Updating...";
+      } else {
+        loadingText.value = "Installing...";
+      }
       loading.value = true;
 
       await installer.install();
 
       // Close - success
-      close(true);
+      emit("close", true);
     } catch (err) {
       // Error
-      errorText.value = err.message;
+      errorText.value = err.message || "Unknon error";
     } finally {
       loading.value = false;
     }
   }
 
   // close button
-  async function onClose() {
+  async function onClose(success = false) {
     loadingText.value = "Closing...";
     loading.value = true;
 
@@ -104,7 +107,7 @@
       installer.cancel();
     }
 
-    close(false);
+    emit("close", success);
   }
 
   function preCheck() {
@@ -128,7 +131,7 @@
 
       preCheck();
     } catch (err) {
-      errorText.value = err?.message || "Unknown error";
+      errorText.value = err.message || "Unknown error";
     } finally {
       loading.value = false;
     }

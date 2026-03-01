@@ -38,7 +38,7 @@
         class="shadow-lg grid grid-cols-3 gap-4 text-center bg-primary p-2 text-primary-content"
       >
         <div>
-          <p class="text-lg font-semibold">
+          <p class="text-lg font-semibold truncate">
             {{ manifest.version }}
           </p>
           <p class="text-xs opacity-50">Version</p>
@@ -77,8 +77,11 @@
     <!-- Information Section -->
     <div v-else class="flex-1 p-2 flex flex-col gap-2 overflow-y-auto">
       <!-- About -->
-      <p v-if="manifest.about" class="text-sm leading-relaxed opacity-60">
-        {{ manifest.about }}
+      <p
+        v-if="manifest.description"
+        class="text-sm leading-relaxed opacity-80 text-center line-clamp-6"
+      >
+        {{ manifest.description }}
       </p>
 
       <!-- Storage access -->

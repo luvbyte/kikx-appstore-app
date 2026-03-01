@@ -28,7 +28,7 @@
       v-if="showInstaller && assetData"
       :kikxApp
       :assetData
-      :close="closeInstaller"
+      @close="closeInstaller"
     />
   </div>
 </template>

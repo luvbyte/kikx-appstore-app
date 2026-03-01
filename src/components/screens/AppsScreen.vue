@@ -1,15 +1,17 @@
 <template>
   <div class="fscreen flex flex-col gap-2">
     <h1 class="p-2 bg-primary/60 text-primary-content font-semibold">
-      Installed Apps
+      Manage Apps
     </h1>
     <!-- Selected App -->
-    <AppManagePanel
-      v-if="selectedApp"
-      :manifest="selectedApp"
-      :kikxApp
-      :close="reloadApps"
-    />
+    <Transition name="fade-scale">
+      <AppManagePanel
+        v-if="selectedApp"
+        :manifest="selectedApp"
+        :kikxApp
+        @close="reloadApps"
+      />
+    </Transition>
     <!-- Container -->
     <div class="w-full bg-base-100">
       <!-- App List Section -->

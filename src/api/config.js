@@ -3,11 +3,11 @@ export const DEV = process.env.NODE_ENV !== "production";
 const { protocol, hostname, port } = window.location;
 
 export const apiUrl = DEV
-  ? "http://localhost:8000"
+  ? "http://localhost:1303"
   : `${protocol}//${hostname}${port ? `:${port}` : ""}`;
 
 export const wsUrl = DEV
-  ? "ws://localhost:8000"
+  ? "ws://localhost:1303"
   : `${protocol === "https:" ? "wss:" : "ws:"}//${hostname}${port ? `:${port}` : ""}`;
 
 // ----------------

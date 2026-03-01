@@ -19,11 +19,12 @@
   onBeforeMount(async () => {
     // Dev
     if (DEV) {
-    kikxApp.config.configureUrls({
-      apiUrl: "http://localhost:8000",
-      wsUrl: "ws://localhost:8000",
-      appID: "e49e0f2d95e241d59d94e506ecab422e"
-    })}
+      kikxApp.config.configureUrls({
+        apiUrl: "http://localhost:1303",
+        wsUrl: "ws://localhost:1303",
+        appID: "7bc87ad68b394971bddecf8cfcb4f152"
+      });
+    }
     //
     kikxApp.run(() => {
       loading.value = false;
@@ -35,8 +36,9 @@
   <div data-theme="light" class="h-dvh flex flex-col">
     <!-- Title -->
     <div
-      class="py-3 px-2 bg-primary text-primary-content shadow-lg font-bold text-lg"
+      class="py-3 flex gap-1 items-center px-2 bg-base-100 text-base-content shadow font-bold text-lg"
     >
+      <img src="@/assets/icon.png" class="w-6 aspect-square" />
       <h1>AppStore</h1>
     </div>
     <!-- Screens -->
@@ -163,25 +165,6 @@
 
           <span class="text-[11px] mt-0.5">Apps</span>
         </div>
-      </button>
-    </div>
-    <div
-      v-if="false"
-      class="p-2 flex justify-evenly bg-base-200 text-base-content"
-    >
-      <!-- Icon -->
-      <button @click="changeScreen('home')" class="btn btn-sm btn-ghost">
-        Home
-      </button>
-      <button
-        @click="changeScreen('install')"
-        class="btn btn-sm btn-ghost"
-        :kikxApp
-      >
-        Install
-      </button>
-      <button @click="changeScreen('apps')" class="btn btn-sm btn-ghost">
-        Apps
       </button>
     </div>
   </div>

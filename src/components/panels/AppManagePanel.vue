@@ -1,6 +1,6 @@
 <template>
   <div class="bg-base-100 fixed fullscreen inset-0 z-60 flex flex-col gap-2">
-    <Header :title="manifest.title" :close />
+    <Header :title="manifest.title" :close="onClose" />
 
     <AppManifest :manifest :uninstallApp />
 
@@ -29,14 +29,16 @@
 
   import Header from "@/components/ui/Header.vue";
 
-  const { manifest, kikxApp, close } = defineProps([
-    "manifest",
-    "close",
-    "kikxApp"
-  ]);
+  const { manifest, kikxApp } = defineProps(["manifest", "kikxApp"]);
+
+  const emit = defineEmits(["close"]);
 
   const loading = ref(false);
   const errorText = ref(null);
+
+  function onClose() {
+    emit("close");
+  }
 
   // Todo: add this in kpm.js
   async function uninstallApp() {
@@ -52,9 +54,9 @@
       if (!res.ok) {
         throw new Error(res.error.detail);
       }
-      close();
+      onClose();
     } catch (err) {
-      errorText.value = err.message;
+      errorText.value = err.message || "Unknown error";
     } finally {
       loading.value = false;
     }

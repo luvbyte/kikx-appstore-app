@@ -73,12 +73,12 @@
       </div>
     </div>
 
-    <InstallerPanel
-      v-if="showInstaller && assetData"
-      :kikxApp
-      :assetData
-      :close="closeInstaller"
-    />
+      <InstallerPanel
+        v-if="showInstaller && assetData"
+        :kikxApp
+        :assetData
+        @close="closeInstaller"
+      />
   </div>
 </template>
 
