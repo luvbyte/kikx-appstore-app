@@ -1,5 +1,5 @@
 <template>
-  <div class="fscreen flex flex-col gap-2">
+  <div class="flex-1 flex flex-col gap-2 overflow-y-auto">
     <h1 class="p-2 bg-primary/60 text-primary-content font-semibold">
       Manage Apps
     </h1>
@@ -13,7 +13,7 @@
       />
     </Transition>
     <!-- Container -->
-    <div class="w-full bg-base-100">
+    <div class="flex-1 flex flex-col w-full bg-base-100 overflow-hidden">
       <!-- App List Section -->
       <div class="px-2">
         <input
@@ -23,7 +23,7 @@
         />
       </div>
 
-      <div class="p-2 flex flex-col gap-2 overflow-y-auto">
+      <div class="flex-1 p-2 flex flex-col gap-2 overflow-y-auto scroll-smooth">
         <AppCardSmall
           v-for="app in filteredApps"
           :key="app.name"
