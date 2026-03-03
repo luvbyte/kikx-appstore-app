@@ -22,7 +22,7 @@
       kikxApp.config.configureUrls({
         apiUrl: "http://localhost:1303",
         wsUrl: "ws://localhost:1303",
-        appID: "7bc87ad68b394971bddecf8cfcb4f152"
+        appID: "b1cd4c923830421c8c8881b26bee4b7e"
       });
     }
     //
@@ -33,7 +33,7 @@
 </script>
 
 <template>
-  <div data-theme="light" class="h-dvh flex flex-col">
+  <div data-theme="light" class="h-dvh flex flex-col overflow-hidden">
     <!-- Title -->
     <div
       class="py-3 flex gap-1 items-center px-2 bg-base-100 text-base-content shadow font-bold text-lg"
@@ -42,7 +42,7 @@
       <h1>AppStore</h1>
     </div>
     <!-- Screens -->
-    <div class="flex-1">
+    <div class="flex-1 flex flex-col overflow-hidden">
       <HomeScreen v-show="currentScreen === 'home'" :kikxApp :changeScreen />
       <InstallScreen
         v-if="currentScreen === 'install'"
@@ -54,7 +54,7 @@
     <!-- Statusbar -->
     <!-- Bottom Navigation -->
     <div
-      class="fixed bottom-0 left-0 right-0 h-16 bg-base-100 border-t border-base-300 flex justify-around items-center px-2"
+      class="h-16 bg-base-100 border-t border-base-300 flex justify-around items-center px-2"
     >
       <!-- Home -->
       <button

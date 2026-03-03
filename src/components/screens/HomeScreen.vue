@@ -1,7 +1,7 @@
 <template>
-  <div class="fscreen flex flex-col gap-2 py-2">
+  <div class="flex-1 flex flex-col gap-2 py-2 overflow-y-auto">
     <!-- Mobile Container -->
-    <div class="w-full bg-base-100">
+    <div class="flex-1 flex flex-col bg-base-100 overflow-hidden">
       <!-- App List Section -->
 
       <div class="p-2">
@@ -12,7 +12,7 @@
         />
       </div>
 
-      <div class="p-2 flex flex-col gap-2 overflow-y-auto">
+      <div class="flex-1 p-2 flex flex-col gap-2 overflow-y-auto scroll-smooth">
         <AppCardSmall
           v-for="app in filteredApps"
           :key="app.name"
@@ -84,7 +84,10 @@
 
   function getIconUrl(app) {
     if (app.icon.startsWith("http")) return app.icon;
-    return "https://raw.githubusercontent.com/luvbyte/kikx-apps-index/refs/heads/main/icons/" + app.icon;
+    return (
+      "https://raw.githubusercontent.com/luvbyte/kikx-apps-index/refs/heads/main/icons/" +
+      app.icon
+    );
   }
 
   async function fetchIndex() {
