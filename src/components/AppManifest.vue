@@ -16,23 +16,20 @@
             :src="iconUrl || getAppIcon(manifest.icon, manifest.name)"
           />
         </div>
-
         <!-- App Info -->
         <div class="flex-1 pt-2">
           <h1 class="text-2xl font-semibold tracking-tight">
             {{ manifest.title }}
           </h1>
-
           <div class="font-medium">
             {{ manifest.author }}
           </div>
-
           <p class="text-xs opacity-50 mt-1">
             {{ manifest.name }}
+            <span v-if="isSystemApp()">( system )</span>
           </p>
         </div>
       </div>
-
       <!-- Key Info Grid -->
       <div
         class="shadow-lg grid grid-cols-3 gap-4 text-center bg-primary p-2 text-primary-content"
@@ -43,7 +40,6 @@
           </p>
           <p class="text-xs opacity-50">Version</p>
         </div>
-
         <div>
           <p class="text-lg font-semibold truncate">
             {{ manifest.category || manifest.theme }}
@@ -52,7 +48,6 @@
             {{ manifest.category ? "Category" : "Theme" }}
           </p>
         </div>
-
         <div>
           <p class="text-lg font-semibold truncate">
             {{ manifest.author ?? "Unknown" }}
@@ -60,19 +55,15 @@
           <p class="text-xs opacity-50">Author</p>
         </div>
       </div>
-
       <!-- Sudo -->
-
       <div
         v-if="manifest.sudo"
-        class="my-2 p-2 bg-error text-error-content opacity-80"
+        class="my-2 p-2 bg-error/60 text-error-content text-center opacity-80"
       >
-        This app uses sudo privileges and can access system and root files. Use
-        with caution.
+        This app uses sudo privileges.
       </div>
     </div>
     <!-- Json -->
-
     <pre v-if="displayJson" class="text-sm overflow-auto">{{ manifest }}</pre>
     <!-- Information Section -->
     <div v-else class="flex-1 p-2 flex flex-col gap-2 overflow-y-auto">
@@ -106,6 +97,18 @@
           </div>
         </div>
       </div>
+      <!-- Services -->
+      <div v-if="servicesList.length">
+        <div class="divider m-0">Services</div>
+        <div class="mt-2 flex gap-2 flex-wrap">
+          <div
+            v-for="name in servicesList"
+            class="badge badge-sm badge-primary"
+          >
+            {{ name }}
+          </div>
+        </div>
+      </div>
       <!-- Iframe -->
       <div v-if="iframeList.length">
         <div class="divider m-0">Iframe</div>
@@ -123,7 +126,11 @@
   import { ref } from "vue";
   import { getAppIcon } from "@/api/config";
 
-  const { manifest, iconUrl } = defineProps(["manifest", "iconUrl"]);
+  const { manifest, iconUrl, isSystemApp } = defineProps([
+    "manifest",
+    "iconUrl",
+    "isSystemApp"
+  ]);
 
   const displayJson = ref(false);
 
@@ -134,10 +141,14 @@
     return "badge-primary opacity-30";
   };
 
-  const accessList = [
+  const servicesList = [
     ...(manifest?.proxy ? ["proxy"] : []),
-    ...(manifest?.system?.access ?? [])
+    ...(manifest?.os ? ["os"] : []),
+    ...(manifest?.os ? ["kv"] : []),
+    ...(manifest?.os ? ["tasker"] : [])
   ];
+
+  const accessList = [...(manifest?.system?.access ?? [])];
 
   const iframeList = [
     ...(manifest?.iframe?.allowfullscreen ? ["allowfullscreen"] : []),

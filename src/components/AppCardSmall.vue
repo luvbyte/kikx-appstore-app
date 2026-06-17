@@ -25,7 +25,6 @@
         By {{ app.author }}
       </p>
     </div>
-
   </div>
 </template>
 <script setup>
@@ -33,8 +32,6 @@
   const { app, icon, isUrl } = defineProps(["app", "icon", "isUrl"]);
 
   const getIconUrl = () => {
-    console.log(icon);
-
     if (isUrl) return icon;
     return getAppIcon(app.icon, app.name);
   };

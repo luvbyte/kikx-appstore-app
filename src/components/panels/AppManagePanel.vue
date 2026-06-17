@@ -2,7 +2,7 @@
   <div class="bg-base-100 fixed fullscreen inset-0 z-60 flex flex-col gap-2">
     <Header :title="manifest.title" :close="onClose" />
 
-    <AppManifest :manifest :uninstallApp />
+    <AppManifest :manifest :uninstallApp :isSystemApp="isSystemApp" />
 
     <div v-if="!loading">
       <div
@@ -29,12 +29,18 @@
 
   import Header from "@/components/ui/Header.vue";
 
-  const { manifest, kikxApp } = defineProps(["manifest", "kikxApp"]);
+  const { manifest, kikxApp, systemApps } = defineProps([
+    "manifest",
+    "kikxApp",
+    "systemApps"
+  ]);
 
   const emit = defineEmits(["close"]);
 
   const loading = ref(false);
   const errorText = ref(null);
+
+  const isSystemApp = () => systemApps.includes(manifest.name);
 
   function onClose() {
     emit("close");

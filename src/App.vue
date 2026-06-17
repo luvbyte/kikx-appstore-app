@@ -10,7 +10,7 @@
   const kikxApp = createApp();
   const loading = ref(true);
 
-  const currentScreen = ref("home");
+  const currentScreen = ref("install");
 
   function changeScreen(name) {
     currentScreen.value = name;
@@ -20,9 +20,9 @@
     // Dev
     if (DEV) {
       kikxApp.config.configureUrls({
-        apiUrl: "http://localhost:1303",
-        wsUrl: "ws://localhost:1303",
-        appID: "b1cd4c923830421c8c8881b26bee4b7e"
+        apiUrl: "http://localhost:8000",
+        wsUrl: "ws://localhost:8000",
+        appID: ""
       });
     }
     //

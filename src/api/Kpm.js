@@ -3,8 +3,6 @@ export class AppInstaller {
     this.app = app;
     this.tempId = null;
     this.manifest = null;
-
-    console.log(app);
   }
 
   getPreviewUrl = file => {

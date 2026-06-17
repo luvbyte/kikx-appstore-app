@@ -8,6 +8,7 @@
       <AppManagePanel
         v-if="selectedApp"
         :manifest="selectedApp"
+        :systemApps="systemApps"
         :kikxApp
         @close="reloadApps"
       />
@@ -45,6 +46,7 @@
 
   const selectedApp = ref(null);
   const apps = ref([]);
+  const systemApps = ref([]);
 
   const search = ref("");
 
@@ -69,6 +71,11 @@
     selectedApp.value = app;
   }
 
+  async function getSystemAppsList() {
+    const apps = await kikxApp.system.getAppsList(true);
+    return apps.filter(app => app.system).map(app => app.name);
+  }
+
   async function fetchAppsList() {
     const res = await kikxApp.system.request(`app/installed-apps`);
 
@@ -76,6 +83,7 @@
       throw new Error(res.error);
     }
 
+    systemApps.value = await getSystemAppsList();
     apps.value = res.data;
   }
 
