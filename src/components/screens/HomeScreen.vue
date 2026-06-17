@@ -3,7 +3,6 @@
     <!-- Mobile Container -->
     <div class="flex-1 flex flex-col bg-base-100 overflow-hidden">
       <!-- App List Section -->
-
       <div class="p-2">
         <input
           v-model="search"

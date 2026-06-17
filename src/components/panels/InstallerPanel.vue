@@ -8,6 +8,7 @@
       <AppManifest
         v-if="appData"
         :manifest="appData.manifest"
+        :isSystemApp="isSystemApp"
         :iconUrl="getIconUrl(appData.manifest.icon)"
       />
     </div>
@@ -42,6 +43,7 @@
   const emit = defineEmits(["close"]);
 
   // when closing
+  const systemApps = ref([]);
 
   const installer = new AppInstaller(kikxApp);
 
@@ -110,6 +112,13 @@
     emit("close", success);
   }
 
+  async function getSystemAppsList() {
+    const apps = await kikxApp.system.getAppsList(true);
+    return apps.filter(app => app.system).map(app => app.name);
+  }
+
+  const isSystemApp = () => systemApps.value.includes(appData.value.manifest.name);
+
   function preCheck() {
     if (!appData.value) throw Error("Unknown error");
 
@@ -124,6 +133,8 @@
   }
 
   onBeforeMount(async () => {
+    systemApps.value = await getSystemAppsList();
+
     try {
       appData.value = isGithub()
         ? await installer.prepare_github(assetData)
