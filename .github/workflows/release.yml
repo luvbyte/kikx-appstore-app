@@ -59,12 +59,10 @@ jobs:
           cp -r dist app/www
           cp -r public app/public
           cp app.json app/app.json
-
+      
       - name: Create KIKX
         run: |
-          cd app
-          zip -r ../app.zip .
-          cd ..
+          zip -r app.zip app
           mv app.zip app.kikx
 
       - name: Create Release
