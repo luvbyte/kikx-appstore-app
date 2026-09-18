@@ -11,8 +11,8 @@ const invoker = new Invoker(app);
 // If its dev mode
 if (DEV) {
   app.config.configureUrls({
-    apiUrl
-    // appID: "532dade4e6ee4283a6f01784a7963c84"
+    apiUrl,
+    appID: "cf420507354647ce997f9ba15099a3b3"
   });
 }
 

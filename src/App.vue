@@ -104,7 +104,8 @@
       <InstallScreen
         v-if="currentScreen === 'install'"
         :invokeAppUri="invokeAppUri"
-        @success="() => changeScreen('apps')"
+        @clear-uri="invokeAppUri = null"
+        @close="() => changeScreen('apps')"
       />
       <ManagerScreen v-if="currentScreen === 'apps'" />
     </div>

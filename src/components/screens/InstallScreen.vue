@@ -94,7 +94,7 @@
       required: false
     }
   });
-  const emit = defineEmits(["success"]);
+  const emit = defineEmits(["close", "clear-uri"]);
 
   const fileInput = ref(null);
   const selectedFile = ref(null);
@@ -139,8 +139,12 @@
       fileInput.value.value = null; // reset file input
     }
 
+    if (props.invokeAppUri) {
+      emit("clear-uri");
+    }
+
     if (success) {
-      emit("success");
+      emit("close");
     }
   }
 
