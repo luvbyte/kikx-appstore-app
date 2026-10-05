@@ -1,9 +1,5 @@
 <template>
   <div class="fscreen bg-base-100 flex flex-col">
-    <h1 class="p-2 bg-primary/60 text-primary-content font-semibold">
-      Install App
-    </h1>
-
     <div class="w-full p-2">
       <!-- GitHub URL Input -->
       <div class="flex gap-2 pt-2">
@@ -26,48 +22,148 @@
       <!-- Divider -->
       <div class="divider text-xs">OR</div>
 
-      <!-- File Upload Section -->
-      <div class="w-full max-w-md mx-auto">
-        <h1 class="text-lg font-semibold mb-4 text-center">Upload App</h1>
+      <!-- Upload App -->
+      <div class="w-full max-w-lg mx-auto">
+        <div class="mb-6 text-center">
+          <h1 class="text-xl font-bold">Upload App</h1>
+          <p class="text-sm text-base-content/60 mt-1">
+            Choose where you want to load your .kikx app from
+          </p>
+        </div>
 
-        <!-- Upload Card -->
-        <div
-          class="border-2 border-dashed border-base-300 rounded-xl p-6 text-center hover:border-primary transition cursor-pointer"
-          @click="fileInput?.click()"
-        >
-          <input
-            ref="fileInput"
-            type="file"
-            accept=".kikx"
-            :disabled="processing"
-            class="hidden"
-            @change="handleFileUpload"
-          />
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+          <!-- App File -->
+          <div
+            class="group relative rounded-2xl border border-base-300 bg-base-100 p-5 hover:border-primary/60 hover:bg-primary/5 active:scale-[0.98] transition-all cursor-pointer"
+            @click="fileInput?.click()"
+          >
+            <input
+              ref="fileInput"
+              type="file"
+              :disabled="processing"
+              class="hidden"
+              @change="handleFileUpload"
+            />
 
-          <div class="flex flex-col items-center gap-2">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              class="w-10 h-10 text-base-content/50"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
+            <div
+              class="w-11 h-11 rounded-xl bg-primary/10 text-primary flex items-center justify-center mb-4 group-hover:scale-105 transition-transform"
             >
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="1.5"
-                d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1M12 12V3m0 0l-3 3m3-3l3 3"
-              />
-            </svg>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                class="w-6 h-6"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="1.8"
+                  d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1M12 12V3m0 0l-3 3m3-3l3 3"
+                />
+              </svg>
+            </div>
 
-            <p class="text-sm text-base-content/70">Click to select a file</p>
+            <h2 class="font-semibold">Upload App File</h2>
 
-            <p
-              v-if="selectedFile"
-              class="text-xs text-primary font-medium mt-2"
-            >
-              {{ selectedFile.name }}
+            <p class="text-xs text-base-content/60 mt-1">
+              Upload .kikx file from your device
             </p>
+
+            <div
+              v-if="selectedFile"
+              class="mt-4 flex items-center gap-2 rounded-lg bg-base-200 px-3 py-2"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                class="w-4 h-4 text-primary shrink-0"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l4.414 4.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
+                />
+              </svg>
+
+              <span class="text-xs font-medium truncate">
+                {{ selectedFile.name }}
+              </span>
+            </div>
+
+            <div
+              class="absolute top-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                class="w-4 h-4 text-primary"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M9 5l7 7-7 7"
+                />
+              </svg>
+            </div>
+          </div>
+
+          <!-- Local File -->
+          <div
+            class="group relative rounded-2xl border border-base-300 bg-base-100 p-5 hover:border-secondary/60 hover:bg-secondary/5 active:scale-[0.98] transition-all cursor-pointer"
+            @click="localFileUpload"
+          >
+            <div
+              class="w-11 h-11 rounded-xl bg-secondary/10 text-secondary flex items-center justify-center mb-4 group-hover:scale-105 transition-transform"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                class="w-6 h-6"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="1.8"
+                  d="M3 7a2 2 0 012-2h5l2 2h7a2 2 0 012 2v8a2 2 0 01-2 2H5a2 2 0 01-2-2V7z"
+                />
+              </svg>
+            </div>
+
+            <h2 class="font-semibold">Local Storage</h2>
+
+            <p class="text-xs text-base-content/60 mt-1">
+              Choose an app from your local file system
+            </p>
+
+            <div
+              class="mt-4 inline-flex items-center gap-1.5 text-xs font-medium text-secondary"
+            >
+              Browse files
+
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                class="w-3.5 h-3.5"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M9 5l7 7-7 7"
+                />
+              </svg>
+            </div>
           </div>
         </div>
       </div>
@@ -85,6 +181,7 @@
 
 <script setup>
   import { ref, computed, onBeforeMount } from "vue";
+  import { invoker } from "@/api";
 
   import InstallerPanel from "@/components/panels/InstallerPanel.vue";
 
@@ -159,6 +256,19 @@
     } else {
       handleStorageInstall(uri);
     }
+  }
+
+  async function localFileUpload() {
+    const file = await invoker.askFile({
+      title: "Select kikx file",
+      accept: "kikx"
+    });
+
+    if (!file) {
+      return;
+    }
+
+    handleStorageInstall(file.kikxpath);
   }
 
   onBeforeMount(() => {

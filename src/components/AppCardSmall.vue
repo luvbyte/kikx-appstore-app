@@ -7,9 +7,12 @@
       class="size-14 shrink-0 overflow-hidden rounded-xl border border-base-200 bg-base-200/50 p-0.5"
     >
       <img
-        class="size-full rounded-[10px] object-cover"
+        class="size-full rounded-[10px] object-cover transition-opacity duration-300"
+        :class="loaded ? 'opacity-100' : 'opacity-0'"
         :src="icon || getUrl(app.icon)"
         :alt="`${app.title} icon`"
+        @load="loaded = true"
+        @error="loaded = true"
       />
     </div>
 
@@ -72,7 +75,7 @@
       >
         <path
           fill-rule="evenodd"
-          d="M7.21 14.77a.75.75 0 0 1 .02-1.06L10.94 10 7.23 6.29a.75.75 0 1 1 1.06-1.06l4.24 4.24a.75.75 0 0 1 0 1.06l-4.24 4.24a.75.75 0 0 1-1.06-.02Z"
+          d="M7.21 14.77a.75.75 0 0 1 .02-1.06L10.94 10 7.23 6.29a.75.75 0 0 1 1.06-1.06l4.24 4.24a.75.75 0 0 1 0 1.06l-4.24 4.24a.75.75 0 0 1 0 1.06l-4.24 4.24a.75.75 0 0 1-1.06.02Z"
           clip-rule="evenodd"
         />
       </svg>
@@ -81,7 +84,10 @@
 </template>
 
 <script setup>
+  import { ref } from "vue";
   import { getUrl } from "@/api/config";
+
+  const loaded = ref(false);
 
   defineProps({
     app: {

@@ -11,8 +11,8 @@ const invoker = new Invoker(app);
 // If its dev mode
 if (DEV) {
   app.config.configureUrls({
-    apiUrl,
-    appID: "cf420507354647ce997f9ba15099a3b3"
+    apiUrl
+    // appID: "cf420507354647ce997f9ba15099a3b3"
   });
 }
 
@@ -32,4 +32,4 @@ export async function getTheme() {
   return theme;
 }
 
-export { app, kv, kpm };
+export { app, kv, kpm, invoker };

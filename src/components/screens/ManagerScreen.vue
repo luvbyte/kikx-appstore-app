@@ -1,8 +1,5 @@
 <template>
   <div class="flex-1 flex flex-col gap-2 overflow-y-auto">
-    <h1 class="p-2 bg-primary/60 text-primary-content font-semibold">
-      Manage Apps
-    </h1>
     <!-- Selected App -->
     <Transition name="fade-scale">
       <AppManagePanel

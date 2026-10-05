@@ -9,8 +9,8 @@ importers:
   .:
     dependencies:
       kikx-sdk:
-        specifier: ^1.2.0
-        version: 1.2.0
+        specifier: 1.2.4
+        version: 1.2.4
       vue:
         specifier: ^3.5.29
         version: 3.5.39
@@ -543,8 +543,8 @@ packages:
     resolution: {integrity: sha512-AC/7JofJvZGrrneWNaEnJeOLUx+JlGt7tNa0wZiRPT4MY1wmfKjt2+6O2p2uz2+skll8OZZmJMNqeke7kKbNgQ==}
     hasBin: true
 
-  kikx-sdk@1.2.0:
-    resolution: {integrity: sha512-6Rvb6aaWS05T+08yc8XLLIN4IJolEYIOh9FQG255lSk1KrPM58t1ZjViOhxn7vXSNLruC+Z96pmz45cAi3HXGw==}
+  kikx-sdk@1.2.4:
+    resolution: {integrity: sha512-Rp1ln7GqkmA0qZCZsOXtUH/qZnp44YX3KHY9tYHvokCVXAy2gV1LwTF1n9lFjXEBedrIf68rAiZRDyAqv9Gx/Q==}
 
   lightningcss-android-arm64@1.32.0:
     resolution: {integrity: sha512-YK7/ClTt4kAK0vo6w3X+Pnm0D2cf2vPHbhOXdoNti1Ga0al1P4TBZhwjATvjNwLEBCnKvjJc2jQgHXH0NEwlAg==}
@@ -1081,7 +1081,7 @@ snapshots:
 
   jiti@2.7.0: {}
 
-  kikx-sdk@1.2.0: {}
+  kikx-sdk@1.2.4: {}
 
   lightningcss-android-arm64@1.32.0:
     optional: true
