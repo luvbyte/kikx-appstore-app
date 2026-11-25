@@ -2,6 +2,11 @@
 
 ## [0.1.0]
 ### Added
+- Added re-install
+- Loading progress in store panel
+
+## [0.1.0]
+### Added
 - Local file upload
 - Apps onscroll loading
 - Icons fadein effect

@@ -44,8 +44,11 @@
         />
       </div>
 
+      <Loading v-if="fetching || loading" />
+
       <!-- App List -->
       <div
+        v-else
         ref="scrollContainer"
         class="flex-1 p-2 flex flex-col gap-2 overflow-y-auto scroll-smooth"
       >
@@ -103,6 +106,7 @@
 
   import AppCardSmall from "@/components/AppCardSmall.vue";
   import InstallerPanel from "@/components/panels/InstallerPanel.vue";
+  import Loading from "@/components/ui/Loading.vue";
 
   const emit = defineEmits(["changeScreen"]);
 
@@ -118,6 +122,7 @@
 
   const selectedApp = ref(null);
 
+  const fetching = ref(false);
   const loading = ref(true);
   const loadingMore = ref(false);
   const showInstaller = ref(false);
@@ -328,7 +333,11 @@
   // ----------------------------------------
 
   async function fetchIndex() {
+    fetching.value = true;
+
     const response = await fetch(REPO_BASE_URL + "index.json");
+
+    fetching.value = false;
 
     if (!response.ok) {
       throw new Error("Failed to fetch index.json");

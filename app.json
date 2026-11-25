@@ -1,10 +1,10 @@
 {
   "name": "com.kikx.appstore",
   "title": "AppStore",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "author": "luvbyte",
   "description": "kikx app store",
-  "kikx_version": "0.4.4",
+  "kikx_version": "0.4.7",
 
   "include": ["public", "www"],
 

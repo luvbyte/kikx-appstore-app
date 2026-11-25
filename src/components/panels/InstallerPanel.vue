@@ -64,7 +64,11 @@
 
   // Slider label dynamic
   const sliderLabel = computed(() => {
-    if (!appData.value) return "";
+    if (!appData.value) return "!!!";
+
+    if (appData.value.app_installed && !appData.value.is_update) {
+      return `Slide to re-install (${appData.value.installed_app_manifest.version} -> ${appData.value.manifest.version})`;
+    }
 
     if (appData.value.is_update) {
       const { current_version, latest_version } = appData.value.is_update;
@@ -123,11 +127,6 @@
 
     if (!appData.value.is_compatible) {
       throw Error("App is not compatible");
-    }
-
-    // If version is less
-    if (appData.value.app_installed && !appData.value.is_update) {
-      throw Error("App already latest version");
     }
   }
 
