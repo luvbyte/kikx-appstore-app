@@ -24,7 +24,7 @@ jobs:
       - uses: pnpm/action-setup@v4
         with:
           version: 9
-      
+
       - name: Remove invalid workspace file
         run: rm -f pnpm-workspace.yaml
 
@@ -71,7 +71,7 @@ jobs:
           mv app.zip app.kikx
 
       - name: Create Release
-        uses: softprops/action-gh-release@v2
+        uses: softprops/action-gh-release@v3
         with:
           tag_name: v${{ steps.version.outputs.version }}
           name: v${{ steps.version.outputs.version }}
